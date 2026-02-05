@@ -8,7 +8,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 if TYPE_CHECKING:
-    from typing import List, Tuple
+    pass
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +29,9 @@ def add_basic_features(df: pd.DataFrame) -> pd.DataFrame:
 
 def build_preprocessor(
     df: pd.DataFrame,
-    numeric_cols: List[str] | None = None,
-    categorical_cols: List[str] | None = None,
-) -> Tuple[ColumnTransformer, List[str], List[str]]:
+    numeric_cols: list[str] | None = None,
+    categorical_cols: list[str] | None = None,
+) -> tuple[ColumnTransformer, list[str], list[str]]:
     df = add_basic_features(df)
 
     if numeric_cols is None:

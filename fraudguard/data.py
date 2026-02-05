@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 if TYPE_CHECKING:
-    from typing import Tuple
+    pass
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +36,7 @@ def train_valid_test_split(
     test_size: float = 0.2,
     valid_size: float = 0.25,
     random_state: int = 42,
-) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.Series]:
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.Series]:
     if target_col not in df.columns:
         raise KeyError(f"Target column '{target_col}' not found in DataFrame")
 
