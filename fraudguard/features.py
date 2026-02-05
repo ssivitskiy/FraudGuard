@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-TARGET_COLUMNS = frozenset({"is_fraud", "isFraud", "target", "label", "fraud"})
+TARGET_COLUMNS = frozenset({"is_fraud", "isfraud", "target", "label", "fraud"})
 
 
 def add_basic_features(df: pd.DataFrame) -> pd.DataFrame:

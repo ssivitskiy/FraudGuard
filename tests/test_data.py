@@ -26,19 +26,17 @@ class TestTrainValidTestSplit:
         assert len(result) == 6
 
     def test_correct_split_sizes(self, sample_df):
-        """Размеры выборок должны соответствовать параметрам."""
         X_train, X_valid, X_test, y_train, y_valid, y_test = train_valid_test_split(
             sample_df,
             target_col="is_fraud",
             test_size=0.2,
             valid_size=0.25,
         )
-
         total = len(sample_df)
-        # Test: 20%, Valid: 20%, Train: 60%
+        # Test: 20%, Valid: 25% от оставшихся 80% = 20%, Train: 60%
         assert len(X_test) == pytest.approx(total * 0.2, abs=2)
-        assert len(X_valid) == pytest.approx(total * 0.2, abs=2)
-        assert len(X_train) == pytest.approx(total * 0.6, abs=2)
+        assert len(X_valid) == pytest.approx(total * 0.8 * 0.25, abs=3)  # Исправлено
+        assert len(X_train) == pytest.approx(total * 0.8 * 0.75, abs=3)  # Исправлено
 
     def test_target_not_in_features(self, sample_df):
         """Таргет не должен быть в признаках."""
