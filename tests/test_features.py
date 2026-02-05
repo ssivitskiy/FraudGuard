@@ -12,11 +12,13 @@ class TestAddBasicFeatures:
 
     def test_returns_copy(self):
         """Функция не должна модифицировать исходный DataFrame."""
-        df = pd.DataFrame({
-            "step": [1, 2, 3],
-            "type": ["PAYMENT", "CASH_OUT", "TRANSFER"],
-            "amount": [100.0, 250.5, 300.0],
-        })
+        df = pd.DataFrame(
+            {
+                "step": [1, 2, 3],
+                "type": ["PAYMENT", "CASH_OUT", "TRANSFER"],
+                "amount": [100.0, 250.5, 300.0],
+            }
+        )
 
         df2 = add_basic_features(df)
 
@@ -25,10 +27,12 @@ class TestAddBasicFeatures:
 
     def test_adds_time_features(self):
         """При наличии transaction_time должны добавляться hour и dayofweek."""
-        df = pd.DataFrame({
-            "amount": [100.0],
-            "transaction_time": ["2025-01-15 14:30:00"],  # Среда
-        })
+        df = pd.DataFrame(
+            {
+                "amount": [100.0],
+                "transaction_time": ["2025-01-15 14:30:00"],  # Среда
+            }
+        )
 
         result = add_basic_features(df)
 
@@ -39,10 +43,12 @@ class TestAddBasicFeatures:
 
     def test_handles_missing_transaction_time(self):
         """Без transaction_time функция должна работать без ошибок."""
-        df = pd.DataFrame({
-            "amount": [100.0, 200.0],
-            "type": ["PAYMENT", "TRANSFER"],
-        })
+        df = pd.DataFrame(
+            {
+                "amount": [100.0, 200.0],
+                "type": ["PAYMENT", "TRANSFER"],
+            }
+        )
 
         result = add_basic_features(df)
 
@@ -56,12 +62,14 @@ class TestBuildPreprocessor:
     @pytest.fixture
     def sample_df(self):
         """Создаёт тестовый DataFrame."""
-        return pd.DataFrame({
-            "step": [1, 2, 3],
-            "type": ["PAYMENT", "CASH_OUT", "TRANSFER"],
-            "amount": [100.0, 250.5, 300.0],
-            "nameOrig": ["C123", "C456", "C789"],
-        })
+        return pd.DataFrame(
+            {
+                "step": [1, 2, 3],
+                "type": ["PAYMENT", "CASH_OUT", "TRANSFER"],
+                "amount": [100.0, 250.5, 300.0],
+                "nameOrig": ["C123", "C456", "C789"],
+            }
+        )
 
     def test_returns_column_transformer(self, sample_df):
         """Должен возвращать ColumnTransformer."""
@@ -80,12 +88,14 @@ class TestBuildPreprocessor:
 
     def test_excludes_target_columns(self):
         """Таргет не должен попадать в признаки."""
-        df = pd.DataFrame({
-            "amount": [100.0, 200.0],
-            "type": ["PAYMENT", "TRANSFER"],
-            "isFraud": [0, 1],
-            "is_fraud": [0, 1],
-        })
+        df = pd.DataFrame(
+            {
+                "amount": [100.0, 200.0],
+                "type": ["PAYMENT", "TRANSFER"],
+                "isFraud": [0, 1],
+                "is_fraud": [0, 1],
+            }
+        )
 
         _, num_cols, cat_cols = build_preprocessor(df)
 

@@ -21,8 +21,7 @@ def load_raw_data(fname: str = "transactions.csv") -> pd.DataFrame:
 
     if not path.exists():
         raise FileNotFoundError(
-            f"Data file not found: {path}. "
-            "Please download the dataset and place it in data/raw/"
+            f"Data file not found: {path}. Please download the dataset and place it in data/raw/"
         )
 
     df = pd.read_csv(path)

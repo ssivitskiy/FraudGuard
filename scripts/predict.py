@@ -113,7 +113,7 @@ def main() -> int:
         print(f"Device type:       {args.device_type}")
         print(f"Time:              {args.transaction_time}")
         print("-" * 40)
-        print(f"Fraud probability: {proba:.4f} ({proba*100:.1f}%)")
+        print(f"Fraud probability: {proba:.4f} ({proba * 100:.1f}%)")
         print(f"Prediction:        {'🚨 FRAUD' if pred == 1 else '✅ LEGITIMATE'}")
         print("=" * 40 + "\n")
 

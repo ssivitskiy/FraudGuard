@@ -12,11 +12,13 @@ class TestTrainValidTestSplit:
     @pytest.fixture
     def sample_df(self):
         """Создаёт тестовый DataFrame."""
-        return pd.DataFrame({
-            "feature1": range(100),
-            "feature2": range(100, 200),
-            "is_fraud": [0] * 90 + [1] * 10,  # 10% fraud
-        })
+        return pd.DataFrame(
+            {
+                "feature1": range(100),
+                "feature2": range(100, 200),
+                "is_fraud": [0] * 90 + [1] * 10,  # 10% fraud
+            }
+        )
 
     def test_returns_six_objects(self, sample_df):
         """Должен возвращать 6 объектов."""
@@ -40,9 +42,7 @@ class TestTrainValidTestSplit:
 
     def test_target_not_in_features(self, sample_df):
         """Таргет не должен быть в признаках."""
-        X_train, X_valid, X_test, _, _, _ = train_valid_test_split(
-            sample_df, target_col="is_fraud"
-        )
+        X_train, X_valid, X_test, _, _, _ = train_valid_test_split(sample_df, target_col="is_fraud")
 
         assert "is_fraud" not in X_train.columns
         assert "is_fraud" not in X_valid.columns
@@ -50,9 +50,7 @@ class TestTrainValidTestSplit:
 
     def test_stratification_preserved(self, sample_df):
         """Соотношение классов должно сохраняться в выборках."""
-        _, _, _, y_train, y_valid, y_test = train_valid_test_split(
-            sample_df, target_col="is_fraud"
-        )
+        _, _, _, y_train, y_valid, y_test = train_valid_test_split(sample_df, target_col="is_fraud")
 
         original_ratio = sample_df["is_fraud"].mean()
 
@@ -68,12 +66,8 @@ class TestTrainValidTestSplit:
 
     def test_reproducibility(self, sample_df):
         """С одинаковым random_state должны получаться одинаковые разбиения."""
-        result1 = train_valid_test_split(
-            sample_df, target_col="is_fraud", random_state=42
-        )
-        result2 = train_valid_test_split(
-            sample_df, target_col="is_fraud", random_state=42
-        )
+        result1 = train_valid_test_split(sample_df, target_col="is_fraud", random_state=42)
+        result2 = train_valid_test_split(sample_df, target_col="is_fraud", random_state=42)
 
         X_train1, _, _, _, _, _ = result1
         X_train2, _, _, _, _, _ = result2

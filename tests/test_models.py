@@ -12,16 +12,18 @@ from fraudguard.models import build_forest_model, build_logreg_model
 @pytest.fixture
 def dummy_dataset():
     """Создаёт синтетический датасет для тестов."""
-    df = pd.DataFrame({
-        "step": [1, 2, 3, 4, 5, 6],
-        "type": ["PAYMENT", "CASH_OUT", "PAYMENT", "TRANSFER", "PAYMENT", "CASH_OUT"],
-        "amount": [100.0, 5000.0, 50.0, 7000.0, 200.0, 4500.0],
-        "nameOrig": ["C1", "C2", "C3", "C4", "C5", "C6"],
-        "nameDest": ["M1", "M2", "M3", "M4", "M5", "M6"],
-        "oldbalanceOrg": [1000, 6000, 500, 10000, 1500, 8000],
-        "newbalanceOrg": [900, 1000, 450, 3000, 1300, 4000],
-        "isFraud": [0, 1, 0, 1, 0, 0],
-    })
+    df = pd.DataFrame(
+        {
+            "step": [1, 2, 3, 4, 5, 6],
+            "type": ["PAYMENT", "CASH_OUT", "PAYMENT", "TRANSFER", "PAYMENT", "CASH_OUT"],
+            "amount": [100.0, 5000.0, 50.0, 7000.0, 200.0, 4500.0],
+            "nameOrig": ["C1", "C2", "C3", "C4", "C5", "C6"],
+            "nameDest": ["M1", "M2", "M3", "M4", "M5", "M6"],
+            "oldbalanceOrg": [1000, 6000, 500, 10000, 1500, 8000],
+            "newbalanceOrg": [900, 1000, 450, 3000, 1300, 4000],
+            "isFraud": [0, 1, 0, 1, 0, 0],
+        }
+    )
     X = df.drop(columns=["isFraud"])
     y = df["isFraud"]
     return X, y

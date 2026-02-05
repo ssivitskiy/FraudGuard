@@ -18,6 +18,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+
 @st.cache_resource
 def load_model():
     model_path = MODELS_DIR / "fraud_model.joblib"
@@ -33,10 +34,7 @@ def main():
 
     model = load_model()
     if model is None:
-        st.error(
-            "⚠️ Модель не найдена! "
-            "Запустите `python -m scripts.train` для обучения модели."
-        )
+        st.error("⚠️ Модель не найдена! Запустите `python -m scripts.train` для обучения модели.")
         st.stop()
 
     st.subheader("📝 Параметры транзакции")
